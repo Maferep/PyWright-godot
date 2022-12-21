@@ -5,6 +5,7 @@ var main_screen:Node
 var z:int
 
 var textboxScene = preload("res://System/UI/Textbox.tscn")
+var factory = preload("res://ObjectFactory.gd").new()
 
 var last_object
 
@@ -34,7 +35,20 @@ var centered_objects = ["fg"]
 var external_commands = {}
 
 # Helper functions
-		
+func keywords(arguments, remove=false):
+	# TODO determine if we actually ALWAYS want to replace $ variables here
+	var newargs = []
+	var d = {}
+	for arg in arguments:
+		if "=" in arg:
+			var split = arg.split("=", true, 1)
+			d[split[0]] = value_replace(split[1])
+		else:
+			newargs.append(arg)
+	if remove:
+		return [d, newargs]
+	return d
+	
 func get_objects(script_name, last=null, group=SPRITE_GROUP):
 	if not get_tree():
 		return []
@@ -64,20 +78,7 @@ func value_replace(value):
 	if value.begins_with("$"):
 		return main.stack.variables.get_string(value.substr(1))
 	return value
-	
-func keywords(arguments, remove=false):
-	# TODO determine if we actually ALWAYS want to replace $ variables here
-	var newargs = []
-	var d = {}
-	for arg in arguments:
-		if "=" in arg:
-			var split = arg.split("=", true, 1)
-			d[split[0]] = value_replace(split[1])
-		else:
-			newargs.append(arg)
-	if remove:
-		return [d, newargs]
-	return d
+
 	
 func join(l, sep=" "):
 	return PoolStringArray(l).join(sep)
@@ -102,8 +103,9 @@ func create_object(script, command, class_path, groups, arguments=[]):
 	main_screen.add_child(object)
 	if "main" in object:
 		object.main = main
-	var x=int(keywords(arguments).get("x", 0))
-	var y=int(keywords(arguments).get("y", 0))
+	var args = factory.keywords(arguments)
+	var x=int(args.get("x", 0))
+	var y=int(args.get("y", 0))
 	object.position = Vector2(x, y)
 	if command in ["bg", "fg"]:
 		var filename = Filesystem.lookup_file(
@@ -149,8 +151,8 @@ func create_object(script, command, class_path, groups, arguments=[]):
 	if arguments:
 		object.script_name = keywords(arguments).get("name", arguments[0])
 		object.add_to_group("name_"+object.script_name)
-	if keywords(arguments).get("z", null)!=null:
-		object.z = int(keywords(arguments)["z"])
+	if factory.keywords(arguments).get("z", null)!=null:
+		object.z = int(factory.keywords(arguments)["z"])
 	else:
 		object.z = ZLayers.z_sort[command]
 	for group in groups:
