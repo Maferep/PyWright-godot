@@ -1,6 +1,2 @@
-extends Reference
-
-var main
-
-func _init(commands):
-	main = commands.main
+extends BaseCommand
+func _init(global_state).(global_state): pass

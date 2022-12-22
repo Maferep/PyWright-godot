@@ -1,12 +1,11 @@
 extends Node
 
-var main:Node
-var main_screen:Node
 var z:int
 
 var textboxScene = preload("res://System/UI/Textbox.tscn")
-var factory = preload("res://ObjectFactory.gd").new()
+var factory = preload("res://System/ObjectFactory.gd").new()
 var helper = preload("res://System/Helper.gd").new()
+var global_state = preload("res://System/GameState.gd").new()
 var last_object
 
 export var PAUSE_MULTIPLIER = 0.10
@@ -36,7 +35,7 @@ var external_commands = {}
 
 # Helper functions
 func value_replace(value):
-	return main.stack.variables.value_replace(value)
+	return global_state.variables().value_replace(value)
 		
 func get_objects(script_name, last=null, group=SPRITE_GROUP):
 	if not get_tree():
@@ -52,26 +51,26 @@ func get_objects(script_name, last=null, group=SPRITE_GROUP):
 	return objects
 
 func clear_main_screen():
-	for child in main_screen.get_children():
-		main_screen.remove_child(child)
+	for child in global_state.main_screen.get_children():
+		global_state.main_screen.remove_child(child)
 		child.queue_free()
 		
 func load_command_engine():
-	main = get_tree().get_nodes_in_group("Main")[0]
-	main_screen = get_tree().get_nodes_in_group("MainScreen")[0]
+	global_state.main = get_tree().get_nodes_in_group("Main")[0]
+	global_state.main_screen = get_tree().get_nodes_in_group("MainScreen")[0]
 	index_commands()
 	
 func keywords(arguments, remove=false):
-	return helper.keywords(arguments, main.stack.variables, remove)
+	return helper.keywords(arguments, global_state.variables(), remove)
 	
 func join(l, sep=" "):
 	return PoolStringArray(l).join(sep)
 
 func create_textbox(line) -> Node:
 	var l = textboxScene.instance()
-	l.main = main
+	l.main = global_state.main
 	l.text_to_print = line
-	main_screen.add_child(l)
+	global_state.main_screen.add_child(l)
 	return l
 
 # TODO implement:
@@ -83,7 +82,7 @@ func create_textbox(line) -> Node:
 var WAITERS = ["fg"]
 func create_object(script, command, class_path, groups, arguments=[]):
 	var v = factory.create_object(
-		self.main, self.main_screen, Filesystem, script, command, class_path, groups, arguments)
+		self.global_state.main, self.global_state.main_screen, Filesystem, script, command, class_path, groups, arguments)
 	last_object = v[0]
 	return v[1]
 	
@@ -118,7 +117,7 @@ func hide_arrows(script):
 func get_speaking_char():
 	var characters = get_objects(null, null, CHAR_GROUP)
 	for character in characters:
-		if character.script_name == main.stack.variables.get_string("_speaking", null):
+		if character.script_name == global_state.variables().get_string("_speaking", null):
 			return [character]
 	for character in characters:
 		return [character]
@@ -127,12 +126,12 @@ func get_speaking_char():
 # Save/Load
 func save_scripts():
 	var data = {
-		"variables": main.stack.variables.store,
-		"macros": main.stack.macros,
-		"evidence_pages": main.stack.evidence_pages,
+		"variables": global_state.variables().store,
+		"macros": global_state.stack().macros,
+		"evidence_pages": global_state.stack().evidence_pages,
 		"stack": []
 	}
-	for script in main.stack.scripts:
+	for script in global_state.stack().scripts:
 		var save_script = {
 			"root_path": script.root_path,
 			"filename": script.filename
@@ -159,16 +158,16 @@ func load_scripts():
 	file.close()
 	
 	clear_main_screen()
-	main.stack.clear_scripts()
-	main.stack.variables.store = data["variables"]
-	main.stack.evidence_pages = data["evidence_pages"]
-	main.stack.macros = data["macros"]
+	global_state.stack().clear_scripts()
+	global_state.stack().variables.store = data["variables"]
+	global_state.stack().evidence_pages = data["evidence_pages"]
+	global_state.stack().macros = data["macros"]
 	
 	for script_data in data["stack"]:
-		main.stack.load_script(
+		global_state.stack().load_script(
 			Filesystem.path_join(script_data["root_path"], script_data["filename"])
 		)
-		var script = main.stack.scripts[-1]
+		var script = global_state.stack().scripts[-1]
 		#var script = load("WrightScript/WrightScript.gd").new()
 		#script.main = main
 		#main.stack.scripts.append(script)
@@ -211,7 +210,7 @@ func get_call_methods(object):
 
 func index_commands():
 	for command_file in generate_command_map():
-		var extern = load(command_file).new(self)
+		var extern = load(command_file).new(self.global_state)
 		for command in get_call_methods(extern):
 			external_commands[command] = extern
 
@@ -240,7 +239,7 @@ func call_command(command, script, arguments):
 func is_macro(command):
 	if command.begins_with("{") and command.ends_with("}"):
 		return command.substr(1,command.length()-2)
-	if main.stack.macros.has(command):
+	if global_state.stack().macros.has(command):
 		return command
 	return ""
 	
@@ -254,14 +253,14 @@ func call_macro(command, script, arguments):
 	for arg in arguments:
 		if "=" in arg:
 			var spl = arg.split("=")
-			main.stack.variables.set_val(
+			global_state.variables().set_val(
 				spl[0].strip_edges(),
 				spl[1].strip_edges())
 		else:
-			main.stack.variables.set_val(str(i), arg)
+			global_state.variables().set_val(str(i), arg)
 		i += 1
-	var script_lines = main.stack.macros[command]
-	var new_script = main.stack.add_script(PoolStringArray(script_lines).join("\n"))
+	var script_lines = global_state.stack().macros[command]
+	var new_script = global_state.stack().add_script(PoolStringArray(script_lines).join("\n"))
 	new_script.root_path = script.root_path
 	new_script.filename = "{"+command+"}"
 	# TODO not sure if this is how to handle macros that try to goto

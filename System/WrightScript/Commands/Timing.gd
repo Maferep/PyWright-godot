@@ -1,10 +1,5 @@
-extends Reference
-
-var main
-
-func _init(commands):
-	main = commands.main
-
+extends BaseCommand
+func _init(global_state).(global_state): pass
 # Add script to execute
 # TODO add pausing everything or just the script, along with the priority
 #    @category([VALUE('ticks','How many ticks (1/60 of a second) to wait'),

@@ -8,10 +8,10 @@ func NUM(n:String):
 func EVAL(code:String):
 	var code_spaces = Array(code.split(" ", true, 2))
 	if len(code_spaces) == 1:
-		return Commands.main.stack.variables.get_truth(code_spaces[0])
+		return Commands.global_state.variables().get_truth(code_spaces[0])
 	if len(code_spaces) == 2:
 		code_spaces = [code_spaces[0], "=", code_spaces[1]]
-	var current_value = Commands.main.stack.variables.get_string(code_spaces[0])
+	var current_value = Commands.global_state.variables().get_string(code_spaces[0])
 	var operation = code_spaces[1]
 	var check_value = code_spaces[2]
 	if not operation in ["<", ">", "=", "!=", "<=", ">="]:
@@ -36,7 +36,7 @@ func GV(v:String):
 		return NUM(v)
 	if v.begins_with("'") and v.ends_with("'"):
 		return v.substr(1, v.length()-2)
-	var val = Commands.main.stack.variables.get_string(v)
+	var val = Commands.global_state.variables().get_string(v)
 	if val and val[0].is_valid_integer():
 		return NUM(val)
 	return val

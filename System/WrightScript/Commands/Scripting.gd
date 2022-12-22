@@ -1,10 +1,5 @@
-extends Reference
-
-var main
-
-func _init(commands):
-	main = commands.main
-
+extends BaseCommand
+func _init(global_state).(global_state): pass
 # TODO IMPLEMENT
 # (should set debug mode on
 #         """Used to turn debug mode on or off. Debug mode will print more errors to the screen,

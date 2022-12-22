@@ -1,7 +1,5 @@
-extends Reference
-
-func _init(commands):
-	pass
+extends BaseCommand
+func _init(global_state).(global_state): pass
 
 class Fader extends Node:
 	var objects = []
@@ -74,5 +72,5 @@ static func ws_fade(script, arguments):
 		fader.control_last()
 	else:
 		fader.control_all()
-	Commands.main_screen.add_child(fader)
+	Commands.global_state.main_screen.add_child(fader)
 	return fader

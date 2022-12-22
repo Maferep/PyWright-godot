@@ -1,8 +1,5 @@
-extends Reference
-
-func _init(commands):
-	pass
-
+extends BaseCommand
+func _init(global_state).(global_state): pass
 class Scroller extends Node:
 	var objects = []
 	var wait_signal = ""
@@ -66,5 +63,5 @@ static func ws_scroll(script, arguments):
 		scroller.control_last()
 	else:
 		scroller.control_filter(filter)
-	Commands.main_screen.add_child(scroller)
+	Commands.global_state.main_screen.add_child(scroller)
 	return scroller

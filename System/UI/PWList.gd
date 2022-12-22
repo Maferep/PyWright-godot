@@ -74,7 +74,7 @@ func click_option(option):
 	else:
 		Commands.call_command(
 			"goto",
-			Commands.main.stack.scripts[-1],
+			Commands.global_state.stack().scripts[-1],
 			[
 				option
 			]

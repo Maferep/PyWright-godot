@@ -1,10 +1,5 @@
-extends Reference
-
-var main
-
-func _init(commands):
-	main = commands.main
-	
+extends BaseCommand
+func _init(global_state).(global_state): pass
 func gui_button(script, arguments):
 	var macroname = arguments.pop_front()
 	var spl = Commands.keywords(arguments, true)

@@ -1,9 +1,5 @@
-extends Reference
-
-var main
-
-func _init(commands):
-	main = commands.main
+extends BaseCommand
+func _init(global_state).(global_state): pass
 
 func ws_mus(script, arguments):
 	if not len(arguments):

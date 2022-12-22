@@ -9,7 +9,7 @@ var z:int
 func load_art(root_path, ev_name):
 	self.root_path = root_path
 	self.ev_name = ev_name
-	var ev_pic = Commands.main.stack.variables.get_string(ev_name+"_pic", ev_name)
+	var ev_pic = Commands.global_state.variables().get_string(ev_name+"_pic", ev_name)
 	var pic = PWSprite.new()
 	pic.load_animation(
 		Filesystem.lookup_file("art/ev/"+ev_pic+".png", root_path)

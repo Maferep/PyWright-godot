@@ -50,7 +50,7 @@ func add_option(option):
 func click_option(option):
 	Commands.call_command(
 		"script",
-		Commands.main.stack.scripts[-1],
+		Commands.global_state.stack().scripts[-1],
 		[
 			scene_name+"."+option
 		]

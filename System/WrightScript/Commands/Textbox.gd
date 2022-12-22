@@ -1,10 +1,5 @@
-extends Reference
-
-var main
-
-func _init(commands):
-	main = commands.main
-	
+extends BaseCommand
+func _init(global_state).(global_state): pass
 func ws_textbox(script, arguments):
 	var text = Commands.join(arguments)
 	text = text.substr(1,text.length()-2)

@@ -2,8 +2,8 @@ extends Reference
 class_name Colors
 
 static func string_to_color(text):
-	if Commands.main:
-		var var_text = Commands.main.stack.variables.get_string(text, null)
+	if Commands.global_state.main:
+		var var_text = Commands.global_state.variables().get_string(text, null)
 		if var_text:
 			text = var_text
 	var parts = []

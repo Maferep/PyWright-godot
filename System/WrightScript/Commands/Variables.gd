@@ -1,10 +1,5 @@
-extends Reference
-
-var main
-
-func _init(commands):
-	main = commands.main
-
+extends BaseCommand
+func _init(global_state).(global_state): pass
 func ws_set(script, arguments):
 	var key = arguments.pop_front()
 	var value = Commands.join(arguments)

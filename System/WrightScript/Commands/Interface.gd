@@ -1,10 +1,5 @@
-extends Reference
-
-var main
-
-func _init(commands):
-	main = commands.main
-
+extends BaseCommand
+func _init(global_state).(global_state): pass
 func ws_menu(script, arguments):
 	var menu_name = arguments[0]
 	var kw = Commands.keywords(arguments)
@@ -182,7 +177,7 @@ func ws_casemenu(script, arguments):
 	casemenu.cases = cases
 	casemenu.wrightscript = script
 	Commands.clear_main_screen()
-	Commands.main_screen.add_child(casemenu)
+	Commands.global_state.main_screen.add_child(casemenu)
 	return casemenu
 
 # TODO IMPLEMENT

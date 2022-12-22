@@ -1,17 +1,13 @@
-extends Reference
-
-var main
-
-func _init(commands):
-	main = commands.main
+extends BaseCommand
+func _init(global_state).(global_state): pass
 
 func ws_clear(script, arguments):
 	Commands.clear_main_screen()
 func ws_delete(script, arguments):
 	var name = Commands.keywords(arguments).get("name", null)
 	if name != null:
-		Commands.main_screen.sort_children()
-		var children = Commands.main_screen.get_children()
+		Commands.global_state.main_screen.sort_children()
+		var children =Commands.global_state.main_screen.get_children()
 		for i in range(children.size()):
 			if not "script_name" in children[-i]:
 				continue
