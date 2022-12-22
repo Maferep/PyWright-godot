@@ -6,7 +6,7 @@ var z:int
 
 var textboxScene = preload("res://System/UI/Textbox.tscn")
 var factory = preload("res://ObjectFactory.gd").new()
-
+var helper = preload("res://System/Helper.gd").new()
 var last_object
 
 export var PAUSE_MULTIPLIER = 0.10
@@ -35,20 +35,9 @@ var centered_objects = ["fg"]
 var external_commands = {}
 
 # Helper functions
-func keywords(arguments, remove=false):
-	# TODO determine if we actually ALWAYS want to replace $ variables here
-	var newargs = []
-	var d = {}
-	for arg in arguments:
-		if "=" in arg:
-			var split = arg.split("=", true, 1)
-			d[split[0]] = value_replace(split[1])
-		else:
-			newargs.append(arg)
-	if remove:
-		return [d, newargs]
-	return d
-	
+func value_replace(value):
+	return main.stack.variables.value_replace(value)
+		
 func get_objects(script_name, last=null, group=SPRITE_GROUP):
 	if not get_tree():
 		return []
@@ -72,13 +61,8 @@ func load_command_engine():
 	main_screen = get_tree().get_nodes_in_group("MainScreen")[0]
 	index_commands()
 	
-func value_replace(value):
-	# Replace from variables if starts with $
-	# TODO move to stack
-	if value.begins_with("$"):
-		return main.stack.variables.get_string(value.substr(1))
-	return value
-
+func keywords(arguments, remove=false):
+	return helper.keywords(arguments, main.stack.variables, remove)
 	
 func join(l, sep=" "):
 	return PoolStringArray(l).join(sep)
