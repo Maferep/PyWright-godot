@@ -2,7 +2,7 @@ extends BaseCommand
 func _init(global_state).(global_state): pass
 func ws_menu(script, arguments):
 	var menu_name = arguments[0]
-	var kw = Commands.keywords(arguments)
+	var kw =self.keywords(arguments, GameState.variables())
 	var menu = Commands.create_object(
 		script,
 		"menu",
@@ -51,7 +51,7 @@ func ws_localmenu(script, arguments):
 
 func ws_examine(script, arguments):
 	var hide = "hide" in arguments
-	var fail = Commands.keywords(arguments).get("fail", "none")
+	var fail =self.keywords(arguments, GameState.variables()).get("fail", "none")
 	var examine_menu = Commands.create_object(
 		script,
 		"examine_menu",
@@ -103,7 +103,7 @@ func ws_li(script, arguments):
 		main.log_error("Couldn't find list menu to add item to")
 		return
 	list_menu = list_menu[0]
-	var result = Commands.keywords(arguments).get("result", null)
+	var result =self.keywords(arguments, GameState.variables()).get("result", null)
 	if result:
 		arguments.erase("result="+result)
 	var text = Commands.join(arguments)

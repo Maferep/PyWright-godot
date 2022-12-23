@@ -20,7 +20,7 @@ func ws_step(script, arguments):
 	pass
 	
 func ws_goto(script, arguments):
-	var fail = Commands.keywords(arguments).get("fail", null)
+	var fail =self.keywords(arguments, GameState.variables()).get("fail", null)
 	return script.goto_label(arguments[0], fail)
 	
 func ws_top(script, arguments):
@@ -77,7 +77,7 @@ func ws_label(script, arguments):
 func ws_script(script, arguments, script_text=null):
 	print("STRAY NODES")
 	main.print_stray_nodes()
-	var args = Commands.keywords(arguments, true)
+	var args =keywords(arguments, GameState.variables(), true)
 	var label = args[0].get("label",null)
 	arguments = args[1]
 	if not "stack" in arguments:

@@ -4,7 +4,7 @@ func _init(global_state).(global_state): pass
 func ws_clear(script, arguments):
 	Commands.clear_main_screen()
 func ws_delete(script, arguments):
-	var name = Commands.keywords(arguments).get("name", null)
+	var name =self.keywords(arguments, GameState.variables()).get("name", null)
 	if name != null:
 		GameState.main_screen.sort_children()
 		var children =GameState.main_screen.get_children()
@@ -66,7 +66,7 @@ func ws_char(script, arguments):
 	return character
 	
 func ws_emo(script, arguments):
-	var kw = Commands.keywords(arguments, true)
+	var kw =keywords(arguments, GameState.variables(), true)
 	arguments = kw[1]
 	kw = kw[0]
 	var name = kw.get("name", null)
@@ -122,9 +122,9 @@ func ws_delev(script, arguments):
 			page_array.erase(arguments[0])
 
 func ws_penalty(script, arguments):
-	var variable = Commands.keywords(arguments).get("variable", "penalty")
-	var threat = Commands.keywords(arguments).get("threat", null)
-	var delay = Commands.keywords(arguments).get("delay", null)
+	var variable =self.keywords(arguments, GameState.variables()).get("variable", "penalty")
+	var threat =self.keywords(arguments, GameState.variables()).get("threat", null)
+	var delay =self.keywords(arguments, GameState.variables()).get("delay", null)
 	var damage_amount
 	if arguments:
 		if "=" in arguments[0]:

@@ -29,7 +29,7 @@ func ws_prev_statement(script, arguments):
 	script.prev_statement()
 	
 func ws_statement(script, arguments):
-	var test = Commands.keywords(arguments).get("test", "")
+	var test =self.keywords(arguments, GameState.variables()).get("test", "")
 	if test:
 		if not main.stack.variables.get_truth(test):
 			script.next_statement()

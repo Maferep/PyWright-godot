@@ -2,7 +2,7 @@ extends BaseCommand
 func _init(global_state).(global_state): pass
 func gui_button(script, arguments):
 	var macroname = arguments.pop_front()
-	var spl = Commands.keywords(arguments, true)
+	var spl =keywords(arguments, GameState.variables(), true)
 	var kw = spl[0]
 	var args:Array = spl[1]
 	for single in ["try_bottom", "hold"]:

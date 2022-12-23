@@ -44,8 +44,8 @@ class Scroller extends Node:
 		if time_left <= 0:
 			queue_free()
 	
-static func ws_scroll(script, arguments):
-	var kw = Commands.keywords(arguments)
+func ws_scroll(script, arguments):
+	var kw =self.keywords(arguments, GameState.variables())
 	var x = int(kw.get("x", 0))
 	var y = int(kw.get("y", 0))
 	var z = int(kw.get("z", 0))

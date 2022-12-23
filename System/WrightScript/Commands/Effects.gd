@@ -2,8 +2,8 @@ extends BaseCommand
 func _init(global_state).(global_state): pass
 
 func ws_grey(script, arguments):
-	var name = Commands.keywords(arguments).get("name", null)
-	var value = Commands.keywords(arguments).get("value", 1)
+	var name =self.keywords(arguments, GameState.variables()).get("name", null)
+	var value =self.keywords(arguments, GameState.variables()).get("value", 1)
 	var obs
 	if name:
 		obs = Commands.get_objects(name, null)

@@ -217,7 +217,7 @@ func ws_noflag(script, arguments):
 # while a failure will to to the fail label. It's valid but a bit weird.
 # You should ONLY use one of (?) or (label + fail=)
 func ws_is(script, arguments):
-	var removed = Commands.keywords(arguments, true)
+	var removed =keywords(arguments, GameState.variables(), true)
 	var keywords = removed[0]
 	var fail = keywords.get("fail", null)
 	arguments = removed[1]
@@ -233,7 +233,7 @@ func ws_is(script, arguments):
 		script.fail(label, fail)
 		
 func ws_isnot(script, arguments):
-	var removed = Commands.keywords(arguments, true)
+	var removed =keywords(arguments, GameState.variables(), true)
 	var keywords = removed[0]
 	var fail = keywords.get("fail", null)
 	arguments = removed[1]
@@ -249,7 +249,7 @@ func ws_isnot(script, arguments):
 		script.fail(label, fail)
 		
 func ws_isempty(script, arguments):
-	var removed = Commands.keywords(arguments, true)
+	var removed =keywords(arguments, GameState.variables(), true)
 	var keywords = removed[0]
 	var fail = keywords.get("fail", null)
 	arguments = removed[1]
@@ -266,7 +266,7 @@ func ws_isempty(script, arguments):
 		script.fail(label, fail)
 		
 func ws_isnotempty(script, arguments):
-	var removed = Commands.keywords(arguments, true)
+	var removed =keywords(arguments, GameState.variables(), true)
 	var keywords = removed[0]
 	var fail = keywords.get("fail", null)
 	arguments = removed[1]
@@ -283,7 +283,7 @@ func ws_isnotempty(script, arguments):
 		script.succeed(label)
 		
 func ws_is_ex(script, arguments):
-	var removed = Commands.keywords(arguments, true)
+	var removed =keywords(arguments, GameState.variables(), true)
 	var keywords = removed[0]
 	var fail = keywords.get("fail", null)
 	arguments = removed[1]

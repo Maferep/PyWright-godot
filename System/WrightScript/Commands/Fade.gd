@@ -46,8 +46,8 @@ class Fader extends Node:
 				set_fade()
 				queue_free()
 	
-static func ws_fade(script, arguments):
-	var kw = Commands.keywords(arguments)
+func ws_fade(script, arguments):
+	var kw =self.keywords(arguments, GameState.variables())
 	var fade_in = "in" in arguments
 	var fade_out = "out" in arguments
 	var start = kw.get("start", 0)
