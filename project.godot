@@ -104,6 +104,7 @@ MusicPlayer="*res://System/Audio/MusicPlayer.gd"
 SoundPlayer="*res://System/Audio/SoundPlayer.gd"
 WSExpression="*res://System/WrightScript/WSExpression.gd"
 DirectoryCache="*res://System/Files/DirectoryCache.gd"
+GameState="*res://System/GameState.gd"
 
 [debug]
 

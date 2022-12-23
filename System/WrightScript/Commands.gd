@@ -5,7 +5,7 @@ var z:int
 var textboxScene = preload("res://System/UI/Textbox.tscn")
 var factory = preload("res://System/ObjectFactory.gd").new()
 var helper = preload("res://System/Helper.gd").new()
-var global_state = preload("res://System/GameState.gd").new()
+var global_state 
 var last_object
 
 export var PAUSE_MULTIPLIER = 0.10
@@ -56,6 +56,7 @@ func clear_main_screen():
 		child.queue_free()
 		
 func load_command_engine():
+	global_state = GameState
 	global_state.main = get_tree().get_nodes_in_group("Main")[0]
 	global_state.main_screen = get_tree().get_nodes_in_group("MainScreen")[0]
 	index_commands()
