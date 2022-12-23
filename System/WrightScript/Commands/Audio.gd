@@ -6,7 +6,7 @@ func ws_mus(script, arguments):
 		MusicPlayer.stop_music()
 	else:
 		MusicPlayer.play_music(
-			Filesystem.path_join("music",Commands.join(arguments)), 
+			Filesystem.path_join("music",self.join(arguments)), 
 			script.root_path
 		)
 
@@ -14,6 +14,6 @@ func ws_mus(script, arguments):
 # after=, volumee=
 func ws_sfx(script, arguments):
 	SoundPlayer.play_sound(
-		Filesystem.path_join("sfx", Commands.join(arguments)), 
+		Filesystem.path_join("sfx", self.join(arguments)), 
 		script.root_path
 	)

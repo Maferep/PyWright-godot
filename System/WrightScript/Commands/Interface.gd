@@ -106,7 +106,7 @@ func ws_li(script, arguments):
 	var result =self.keywords(arguments, GameState.variables()).get("result", null)
 	if result:
 		arguments.erase("result="+result)
-	var text = Commands.join(arguments)
+	var text = self.join(arguments)
 	if not result:
 		result = text
 	list_menu.add_item(text, result)

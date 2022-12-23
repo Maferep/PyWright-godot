@@ -44,9 +44,6 @@ func load_command_engine():
 	global_state = GameState
 	index_commands()
 	
-func join(l, sep=" "):
-	return PoolStringArray(l).join(sep)
-
 func create_textbox(line) -> Node:
 	var l = textboxScene.instance()
 	l.main = global_state.main

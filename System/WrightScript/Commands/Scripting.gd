@@ -12,7 +12,7 @@ func ws_debug(script, arguments):
 	return Commands.DEBUG
 	
 func ws_print(script, arguments):
-	print("OUTPUT: ", Commands.join(arguments))
+	print("OUTPUT: ", self.join(arguments))
 	
 # TODO IMPLEMENT
 # Steps through pywright debugger
@@ -87,7 +87,7 @@ func ws_script(script, arguments, script_text=null):
 		pass
 	else:
 		arguments.erase("noclear")
-	var path = Commands.join(arguments)
+	var path = self.join(arguments)
 	var scr
 	if script_text:
 		scr = main.stack.add_script(script_text)

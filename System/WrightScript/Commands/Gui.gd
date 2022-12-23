@@ -8,7 +8,7 @@ func gui_button(script, arguments):
 	for single in ["try_bottom", "hold"]:
 		while single in args:
 			args.erase(single)
-	var text = Commands.join(args)
+	var text = self.join(args)
 	if text:
 		arguments.append("button_text="+text)
 	var graphic = kw.get("graphic", "")

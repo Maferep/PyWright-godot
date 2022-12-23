@@ -18,3 +18,6 @@ func keywords(arguments, variables, remove=false):
 	if remove:
 		return [d, newargs]
 	return d
+
+func join(l, sep=" "):
+	return PoolStringArray(l).join(sep)

@@ -1,7 +1,7 @@
 extends BaseCommand
 func _init(global_state).(global_state): pass
 func ws_textbox(script, arguments):
-	var text = Commands.join(arguments)
+	var text = self.join(arguments)
 	text = text.substr(1,text.length()-2)
 	return Commands.create_textbox(text)
 	
@@ -9,7 +9,7 @@ func ws_text(script, arguments):
 	return ws_textbox(script, arguments)
 
 func ws_nt(script, arguments):
-	var nametag = Commands.join(arguments)
+	var nametag = self.join(arguments)
 	main.stack.variables.set_val("_speaking", "")    		  # Set no character as speaking
 	main.stack.variables.set_val("_speaking_name", nametag)   # Next character will have this name
 
