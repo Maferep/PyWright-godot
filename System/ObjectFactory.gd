@@ -2,10 +2,7 @@ extends Node
 
 var centered_objects = ["fg"]
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+var last_obj
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -88,7 +85,7 @@ func create_object(main, main_screen, fs, script, command, class_path, groups, a
 	var center = Vector2()
 	if command in centered_objects:
 		object.position += Vector2(256/2-object.width/2, 192/2-object.height/2)
-	var last_obj = object
+	self.last_obj = object
 	if arguments:
 		object.script_name = keywords(main.stack.variables, arguments).get("name", arguments[0])
 		object.add_to_group("name_"+object.script_name)
@@ -108,3 +105,16 @@ func create_object(main, main_screen, fs, script, command, class_path, groups, a
 		if "nowait" in arguments:
 			object.set_wait(false)
 	return [last_obj, object]
+	
+func get_objects(script_name, last=null, group=Commands.SPRITE_GROUP):
+	if not get_tree():
+		return []
+	if last:
+		return [last_obj]
+	var objects = []
+	for object in get_tree().get_nodes_in_group(group):
+		if object.is_queued_for_deletion():
+			continue
+		if not script_name or object.script_name == script_name:
+			objects.append(object)
+	return objects

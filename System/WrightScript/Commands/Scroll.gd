@@ -12,18 +12,18 @@ class Scroller extends Node:
 	func _init(x, y, z, speed, wait, filter):
 		name = "scroll"
 		total = Vector2(x, y)
-		objects = Commands.get_objects(null, false)
+		objects = ObjectFactory.get_objects(null, false)
 		move = total.normalized() * (speed/0.02)
 		time_left = total.length()/(speed/0.02)
 		if wait:
 			wait_signal = "tree_exited"
 	func control(script_name):
-		objects = Commands.get_objects(script_name)
+		objects = ObjectFactory.get_objects(script_name)
 		if objects:
 			objects = [objects[-1]]
 		pass
 	func control_last():
-		objects = [Commands.get_objects(null, true)]
+		objects = [ObjectFactory.get_objects(null, true)]
 		if objects:
 			objects = [objects[0]]
 	func control_filter(screen):

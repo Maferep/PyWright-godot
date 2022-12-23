@@ -43,12 +43,12 @@ func load_art(root_path):
 	self.button = button
 
 func click_option(option):
-	for obj in Commands.get_objects(null, null, Commands.TEXTBOX_GROUP):
+	for obj in ObjectFactory.get_objects(null, null, Commands.TEXTBOX_GROUP):
 		obj.click_continue()
 		return
 
 func _process(dt):
-	if not Commands.get_objects(null, null, Commands.TEXTBOX_GROUP):
+	if not ObjectFactory.get_objects(null, null, Commands.TEXTBOX_GROUP):
 		self.button.visible = false
 	else:
 		self.button.visible = true

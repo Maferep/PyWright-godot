@@ -78,7 +78,7 @@ func ws_emo(script, arguments):
 	if not name:
 		characters = Commands.get_speaking_char()
 	else:
-		characters = Commands.get_objects(name, false, Commands.CHAR_GROUP)
+		characters = ObjectFactory.get_objects(name, false, Commands.CHAR_GROUP)
 	if characters:
 		characters[0].load_emotion(emotion)
 		if mode:

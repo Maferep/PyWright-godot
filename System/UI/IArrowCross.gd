@@ -59,7 +59,7 @@ func load_art(root_path):
 	self.bg = bg
 
 func click_option(option):
-	for obj in Commands.get_objects(null, null, Commands.TEXTBOX_GROUP):
+	for obj in ObjectFactory.get_objects(null, null, Commands.TEXTBOX_GROUP):
 		if option == "left":
 			obj.click_prev()
 		elif option == "right":
@@ -67,7 +67,7 @@ func click_option(option):
 		return
 
 func _process(dt):
-	if not Commands.get_objects(null, null, Commands.TEXTBOX_GROUP):
+	if not ObjectFactory.get_objects(null, null, Commands.TEXTBOX_GROUP):
 		visible = false
 	else:
 		visible = true

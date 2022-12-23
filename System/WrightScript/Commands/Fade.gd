@@ -14,19 +14,19 @@ class Fader extends Node:
 		self.end = float(end)
 		speed = float(speed)
 		name = "fade"
-		objects = Commands.get_objects(null, false)
+		objects = ObjectFactory.get_objects(null, false)
 		if wait:
 			wait_signal = "tree_exited"
 	func control(script_name):
-		objects = Commands.get_objects(script_name)
+		objects = ObjectFactory.get_objects(script_name)
 		if objects:
 			objects = [objects[-1]]
 	func control_last():
-		objects = [Commands.get_objects(null, true)]
+		objects = [ObjectFactory.get_objects(null, true)]
 		if objects:
 			objects = [objects[0]]
 	func control_all(screen):
-		objects = Commands.get_objects(null, true)
+		objects = ObjectFactory.get_objects(null, true)
 	func set_fade():
 		for object in objects:
 			if is_instance_valid(object):

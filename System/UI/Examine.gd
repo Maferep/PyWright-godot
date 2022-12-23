@@ -38,7 +38,7 @@ func add_button(normal, highlight, button_name):
 # TODO figure out how we decide whther to show the back button or not
 	
 func load_art(root_path):
-	for bg_ob in Commands.get_objects(null, null, Commands.BG_GROUP):
+	for bg_ob in ObjectFactory.get_objects(null, null, Commands.BG_GROUP):
 		bg_ob = bg_ob.duplicate()
 		bg_obs.append(bg_ob)
 		add_child(bg_ob)

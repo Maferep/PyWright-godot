@@ -6,7 +6,6 @@ var textboxScene = preload("res://System/UI/Textbox.tscn")
 var factory = preload("res://System/ObjectFactory.gd").new()
 var helper = preload("res://System/Helper.gd").new()
 var global_state 
-var last_object
 
 export var PAUSE_MULTIPLIER = 0.10
 
@@ -36,19 +35,6 @@ var external_commands = {}
 # Helper functions
 func value_replace(value):
 	return global_state.variables().value_replace(value)
-		
-func get_objects(script_name, last=null, group=SPRITE_GROUP):
-	if not get_tree():
-		return []
-	if last:
-		return [last_object]
-	var objects = []
-	for object in get_tree().get_nodes_in_group(group):
-		if object.is_queued_for_deletion():
-			continue
-		if not script_name or object.script_name == script_name:
-			objects.append(object)
-	return objects
 
 func clear_main_screen():
 	for child in global_state.main_screen.get_children():
@@ -84,7 +70,6 @@ var WAITERS = ["fg"]
 func create_object(script, command, class_path, groups, arguments=[]):
 	var v = factory.create_object(
 		self.global_state.main, self.global_state.main_screen, Filesystem, script, command, class_path, groups, arguments)
-	last_object = v[0]
 	return v[1]
 	
 func refresh_arrows(script):
@@ -116,7 +101,7 @@ func hide_arrows(script):
 	call_macro("hide_press_button", script, [])
 	
 func get_speaking_char():
-	var characters = get_objects(null, null, CHAR_GROUP)
+	var characters = factory.get_objects(null, null, CHAR_GROUP)
 	for character in characters:
 		if character.script_name == global_state.variables().get_string("_speaking", null):
 			return [character]
