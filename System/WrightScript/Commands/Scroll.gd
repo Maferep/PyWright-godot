@@ -63,5 +63,5 @@ static func ws_scroll(script, arguments):
 		scroller.control_last()
 	else:
 		scroller.control_filter(filter)
-	Commands.global_state.main_screen.add_child(scroller)
+	GameState.main_screen.add_child(scroller)
 	return scroller

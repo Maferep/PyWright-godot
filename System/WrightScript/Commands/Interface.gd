@@ -177,7 +177,7 @@ func ws_casemenu(script, arguments):
 	casemenu.cases = cases
 	casemenu.wrightscript = script
 	Commands.clear_main_screen()
-	Commands.global_state.main_screen.add_child(casemenu)
+	GameState.main_screen.add_child(casemenu)
 	return casemenu
 
 # TODO IMPLEMENT

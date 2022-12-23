@@ -6,8 +6,8 @@ func ws_clear(script, arguments):
 func ws_delete(script, arguments):
 	var name = Commands.keywords(arguments).get("name", null)
 	if name != null:
-		Commands.global_state.main_screen.sort_children()
-		var children =Commands.global_state.main_screen.get_children()
+		GameState.main_screen.sort_children()
+		var children =GameState.main_screen.get_children()
 		for i in range(children.size()):
 			if not "script_name" in children[-i]:
 				continue

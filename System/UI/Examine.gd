@@ -122,7 +122,7 @@ func click_option(option):
 			label = current_region.label
 		Commands.call_command(
 			"goto",
-			Commands.global_state.stack().scripts[-1],
+			GameState.stack().scripts[-1],
 			[
 				label
 			]

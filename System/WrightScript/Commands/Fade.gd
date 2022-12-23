@@ -72,5 +72,5 @@ static func ws_fade(script, arguments):
 		fader.control_last()
 	else:
 		fader.control_all()
-	Commands.global_state.main_screen.add_child(fader)
+	GameState.main_screen.add_child(fader)
 	return fader
