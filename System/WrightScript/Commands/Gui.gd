@@ -14,7 +14,7 @@ func gui_button(script, arguments):
 	var graphic = kw.get("graphic", "")
 	var graphichigh = kw.get("graphichigh", "")
 	var button
-	button = Commands.create_object(
+	button = ObjectFactory.create_object(GameState.main, GameState.main_screen, 
 		script, 
 		"gui", 
 		"res://System/UI/IButton.gd", 

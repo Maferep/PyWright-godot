@@ -53,7 +53,7 @@ func ws_callpress(script, arguments):
 func ws_present(script, arguments):
 	var present = not "nopresent" in arguments
 	arguments.erase("nopresent")
-	var cr = Commands.create_object(
+	var cr = ObjectFactory.create_object(GameState.main, GameState.main_screen, 
 		script, 
 		"evidence_menu",
 		"res://System/UI/CourtRecord.gd",

@@ -4,7 +4,6 @@ var z:int
 
 var textboxScene = preload("res://System/UI/Textbox.tscn")
 var factory = preload("res://System/ObjectFactory.gd").new()
-var helper = preload("res://System/Helper.gd").new()
 var global_state 
 
 export var PAUSE_MULTIPLIER = 0.10
@@ -46,9 +45,6 @@ func load_command_engine():
 	global_state.main = get_tree().get_nodes_in_group("Main")[0]
 	global_state.main_screen = get_tree().get_nodes_in_group("MainScreen")[0]
 	index_commands()
-	
-func keywords(arguments, remove=false):
-	return helper.keywords(arguments, global_state.variables(), remove)
 	
 func join(l, sep=" "):
 	return PoolStringArray(l).join(sep)
