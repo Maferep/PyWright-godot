@@ -60,6 +60,10 @@ func _ready():
 		set_resolution(Vector2(256,384), 2.0, true)
 	
 	stack = WrightScriptStack.new(self)
+
+	GameState.main = get_tree().get_nodes_in_group("Main")[0]
+	GameState.main_screen = get_tree().get_nodes_in_group("MainScreen")[0]
+
 	Commands.load_command_engine()
 	
 	# TODO move tests for this elsewhere

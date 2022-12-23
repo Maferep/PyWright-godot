@@ -42,8 +42,6 @@ func clear_main_screen():
 		
 func load_command_engine():
 	global_state = GameState
-	global_state.main = get_tree().get_nodes_in_group("Main")[0]
-	global_state.main_screen = get_tree().get_nodes_in_group("MainScreen")[0]
 	index_commands()
 	
 func join(l, sep=" "):
