@@ -36,8 +36,9 @@ func keywords(variables, arguments, remove=false):
 # stack
 # fade
 var WAITERS = ["fg"]
-func create_object(main, main_screen, fs, script, command, class_path, groups, arguments=[]):
+func create_object(main, main_screen, script, command, class_path, groups, arguments=[]):
 	var object:Node
+	var fs = Filesystem
 	object = load(class_path).new()
 	main_screen.add_child(object)
 	if "main" in object:
@@ -104,7 +105,7 @@ func create_object(main, main_screen, fs, script, command, class_path, groups, a
 			object.set_wait(true)    #Try to make the object wait, if it is a single play animation that has more than one frame
 		if "nowait" in arguments:
 			object.set_wait(false)
-	return [last_obj, object]
+	return object
 	
 func get_objects(script_name, last=null, group=Commands.SPRITE_GROUP):
 	if not get_tree():

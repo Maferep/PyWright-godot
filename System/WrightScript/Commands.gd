@@ -65,7 +65,6 @@ func create_object(script, command, class_path, groups, arguments=[]):
 	return factory.create_object(
 		self.global_state.main, 
 		self.global_state.main_screen, 
-		Filesystem, 
 		script, 
 		command, 
 		class_path, 
