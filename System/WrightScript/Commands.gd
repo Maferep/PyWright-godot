@@ -68,9 +68,15 @@ func create_textbox(line) -> Node:
 # fade
 var WAITERS = ["fg"]
 func create_object(script, command, class_path, groups, arguments=[]):
-	var v = factory.create_object(
-		self.global_state.main, self.global_state.main_screen, Filesystem, script, command, class_path, groups, arguments)
-	return v[1]
+	return factory.create_object(
+		self.global_state.main, 
+		self.global_state.main_screen, 
+		Filesystem, 
+		script, 
+		command, 
+		class_path, 
+		groups, 
+		arguments)
 	
 func refresh_arrows(script):
 	get_tree().call_group(ARROW_GROUP, "queue_free")
